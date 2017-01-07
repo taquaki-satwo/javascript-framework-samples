@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JavaScript Framework Sample React</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/babel">
+      const TodoList = React.createClass({
+        getInitialState: () => {
+          return {
+            todoItems: [
+              {id: 0, name: 'タスク1'},
+              {id: 1, name: 'タスク2'},
+              {id: 2, name: 'タスク3'}
+            ],
+            newItem: ''
+          };
+        },
+        handleEdit: function(e) {
+          this.setState({newItem: e.target.value});
+        },
+        handleAdd: function(e) {
+          const idName = {id: Date.now(), name: this.state.newItem};
+          const newItems = this.state.todoItems.concat(idName);
+          this.setState({todoItems: newItems});
+          this.setState({newItem: ''});
+        },
+        handleRemove: function(i) {
+          const tempItems = this.state.todoItems;
+          tempItems.splice(i, 1);
+          this.setState({todoItems: tempItems});
+        },
+        render: function() {
+          const currentItems = this.state.todoItems.map((item, i) =>
+            <div key={item.id}>
+              <input
+                type="checkbox"
+                defaultChecked={false}
+                onChange={() => this.handleRemove(i)}
+              />
+              {item.name}
+            </div>
+          );
+          return (
+            <div>
+              <input
+                type="text"
+                value={this.state.newItem}
+                onChange={this.handleEdit}
+              />
+              <input
+                type="button"
+                value="追加"
+                onClick={this.handleAdd}
+              />
+              {currentItems}
+            </div>
+          );
+        }
+      });
+
+      ReactDOM.render(
+        <TodoList />,
+        document.getElementById('content')
+      );
+    </script>
+  </body>
+</html>
