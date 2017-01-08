@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>JavaScript Framework Sample React</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.21.1/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="content">
+     <input v-model="newItem" type="text">
+     <input type="button" value="追加" v-on:click="add">
+       <div v-for="(item, index) in todoItems">
+        <input type="checkbox" v-on:click="remove(index)"> {{item.name}}
+      </div>
+    </div>
+    <script src="app.js" charset="utf-8"></script>
+  </body>
+</html>
